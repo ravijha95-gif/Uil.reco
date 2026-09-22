@@ -13,6 +13,7 @@ import { SettingsModal } from "./components/SettingsModal";
 import { FeedbackModal } from "./components/FeedbackModal";
 import { TicketHelpdeskModal } from "./components/TicketHelpdeskModal";
 import { ConclusionPanel } from "./components/ConclusionPanel";
+import { UserManualModal } from "./components/UserManualModal";
 
 import {
   AnomalyItem,
@@ -43,6 +44,7 @@ import {
   CheckCircle2,
   TrendingUp,
   FileCheck2,
+  BookOpen,
 } from "lucide-react";
 
 // Helpers to re-hydrate Date objects from localStorage JSON
@@ -162,6 +164,7 @@ export default function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState<boolean>(false);
   const [isHelpdeskOpen, setIsHelpdeskOpen] = useState<boolean>(false);
+  const [isManualOpen, setIsManualOpen] = useState<boolean>(false);
   const [ticketCount, setTicketCount] = useState<number>(() => {
     try {
       const saved = localStorage.getItem("vr_feedback_tickets_v1");
@@ -836,6 +839,7 @@ export default function App() {
         onOpenAnomalies={() => setActiveTab("anomalies")}
         onOpenFeedback={() => setIsFeedbackOpen(true)}
         onOpenHelpdesk={() => setIsHelpdeskOpen(true)}
+        onOpenManual={() => setIsManualOpen(true)}
         onExportFull={handleExportFull}
         vendorCount={vendorRows.length}
         buyerCount={buyerRows.length}
@@ -898,6 +902,14 @@ export default function App() {
               >
                 <FileSpreadsheet className="w-4 h-4 text-slate-600" />
                 Upload Ledgers (PDF, Excel, CSV)
+              </button>
+
+              <button
+                onClick={() => setIsManualOpen(true)}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <BookOpen className="w-4 h-4 text-indigo-500" />
+                User Manual
               </button>
             </div>
 
@@ -1186,6 +1198,12 @@ export default function App() {
           refreshTicketCount();
         }}
         onRefreshCount={refreshTicketCount}
+      />
+
+      {/* Complete User Manual Modal */}
+      <UserManualModal
+        isOpen={isManualOpen}
+        onClose={() => setIsManualOpen(false)}
       />
     </div>
   );
