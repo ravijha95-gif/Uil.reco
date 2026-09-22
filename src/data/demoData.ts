@@ -1,0 +1,305 @@
+import { BuyerRow, VendorRow } from "../types";
+import { parseDate } from "../utils/dateAndNumber";
+
+export interface DemoDataset {
+  vendorRows: VendorRow[];
+  buyerRows: BuyerRow[];
+  vendorOpen: { side: "Dr" | "Cr"; amount: number; date: Date | null };
+  buyerOpen: { side: "Dr" | "Cr"; amount: number; count: number; date: Date | null };
+  vendorClose: { side: "Dr" | "Cr"; amount: number };
+  buyerClose: { side: "Dr" | "Cr"; amount: number };
+  vendorCode?: string;
+  vendorName?: string;
+}
+
+export function getDemoData(): DemoDataset {
+  const vendorRowsRaw = [
+    {
+      date: "01-Apr-2024",
+      dc: "Dr" as const,
+      particulars: "Opening Balance Brought Forward",
+      vchType: "Opening",
+      vchNo: "OP-2425",
+      amount: 314378.0,
+      type: "Opening Balance" as const,
+    },
+    {
+      date: "02-Apr-2024",
+      dc: "Cr" as const,
+      particulars: "Indusind Bank Cheque Cleared",
+      vchType: "KOLKATA RECEIPT",
+      vchNo: "K/0003",
+      amount: 159858.0,
+      type: "Payment" as const,
+    },
+    {
+      date: "12-Apr-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - INDUSTRIAL VALVES",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0038",
+      amount: 120263.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "25-Jul-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - PIPING MATERIAL",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0558",
+      amount: 85621.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "25-Jul-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - FLANGES & JOINTS",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0559",
+      amount: 34657.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "26-Jul-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - SEALS & GASKETS",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0562",
+      amount: 126426.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "10-Aug-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - HARDWARE ACCESSORIES",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0646",
+      amount: 45426.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "10-Aug-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - HEAVY FASTENERS",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0647",
+      amount: 177549.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "18-Aug-2024",
+      dc: "Dr" as const,
+      particulars: "GST SALES 18% - STAINLESS BOLTS",
+      vchType: "GST SALES",
+      vchNo: "FHO/KMA/C24/0702",
+      amount: 42150.0,
+      type: "Invoice" as const,
+    },
+    {
+      date: "22-Aug-2024",
+      dc: "Cr" as const,
+      particulars: "QUALITY REJECTION CREDIT NOTE",
+      vchType: "Credit Note",
+      vchNo: "CN/KMA/0012",
+      amount: 18500.0,
+      type: "Credit Note" as const,
+    },
+    {
+      date: "15-Sep-2024",
+      dc: "Dr" as const,
+      particulars: "LOCAL SALES 18% - PUMP SPARES (PENDING SAP BOOKING)",
+      vchType: "Kolkata Sales",
+      vchNo: "FHO/KMA/C24/0890",
+      amount: 98400.0,
+      type: "Invoice" as const,
+    },
+  ];
+
+  const vendorRows: VendorRow[] = vendorRowsRaw.map((r, i) => {
+    const d = parseDate(r.date);
+    return {
+      id: `V-DEMO-${i}`,
+      source: "Vendor",
+      date: d,
+      dc: r.dc,
+      particulars: r.particulars,
+      vchType: r.vchType,
+      ref: r.vchNo,
+      amount: r.amount,
+      signed: r.dc === "Dr" ? r.amount : -r.amount,
+      type: r.type,
+      file: "Vendor_Ledger_Q1_Q2.xlsx",
+      _original: { dc: r.dc, type: r.type },
+    };
+  });
+
+  const buyerRowsRaw = [
+    {
+      docNo: "5100002100",
+      docDate: "01-Apr-2024",
+      postDate: "01-Apr-2024",
+      ref: "Opening Balance",
+      docType: "SA",
+      ind: "Cr" as const,
+      amount: 314378.0,
+      tdsAmt: 0,
+      desc: "Aggregated Opening Balance Entry",
+      type: "Opening Balance" as const,
+    },
+    {
+      docNo: "1500002110",
+      docDate: "02-Apr-2024",
+      postDate: "02-Apr-2024",
+      ref: "K/0003",
+      docType: "KZ",
+      ind: "Dr" as const,
+      amount: 159858.0,
+      tdsAmt: 0,
+      desc: "CHQ RTGS CLEARED INDUSIND",
+      type: "Payment" as const,
+    },
+    {
+      docNo: "5100007138",
+      docDate: "25-Jul-2024",
+      postDate: "27-Jul-2024",
+      ref: "FHO/KMA/ C24/0558", // Note slight space variation
+      docType: "RE",
+      ind: "Cr" as const,
+      amount: 85548.0,
+      tdsAmt: 73.0,
+      desc: "PIPING MATERIAL STORES",
+      type: "Invoice" as const,
+    },
+    {
+      docNo: "5100010150",
+      docDate: "25-Jul-2024",
+      postDate: "09-Sep-2024",
+      ref: "FHO/KMA/ C24/0559",
+      docType: "RE",
+      ind: "Cr" as const,
+      amount: 34628.0,
+      tdsAmt: 29.0,
+      desc: "FLANGES & JOINTS STORES",
+      type: "Invoice" as const,
+    },
+    {
+      docNo: "5100008005",
+      docDate: "26-Jul-2024",
+      postDate: "09-Aug-2024",
+      ref: "FHO/KMA/ C24/0562",
+      docType: "RE",
+      ind: "Cr" as const,
+      amount: 126319.0,
+      tdsAmt: 107.0,
+      desc: "SEALS & GASKETS STORES",
+      type: "Invoice" as const,
+    },
+    {
+      docNo: "5100008387",
+      docDate: "10-Aug-2024",
+      postDate: "16-Aug-2024",
+      ref: "FHO/KMA/ C24/0646",
+      docType: "RE",
+      ind: "Cr" as const,
+      amount: 45388.0,
+      tdsAmt: 38.0,
+      desc: "HARDWARE ACCESSORIES",
+      type: "Invoice" as const,
+    },
+    {
+      docNo: "5100008388",
+      docDate: "10-Aug-2024",
+      postDate: "16-Aug-2024",
+      ref: "FHO/KMA/ C24/0647",
+      docType: "RE",
+      ind: "Cr" as const,
+      amount: 177399.0,
+      tdsAmt: 150.0,
+      desc: "HEAVY FASTENERS",
+      type: "Invoice" as const,
+    },
+    {
+      docNo: "5100009100",
+      docDate: "18-Aug-2024",
+      postDate: "20-Aug-2024",
+      ref: "FHO/KMA/C24/0702",
+      docType: "RE",
+      ind: "Cr" as const,
+      amount: 42114.0,
+      tdsAmt: 36.0,
+      desc: "STAINLESS BOLTS",
+      type: "Invoice" as const,
+    },
+    {
+      docNo: "5100009400",
+      docDate: "22-Aug-2024",
+      postDate: "25-Aug-2024",
+      ref: "CN/KMA/0012",
+      docType: "RE",
+      ind: "Dr" as const,
+      amount: 18500.0,
+      tdsAmt: 0,
+      desc: "CREDIT NOTE BOOKED - REJECTION",
+      type: "Credit Note" as const,
+    },
+    {
+      docNo: "1500004267",
+      docDate: "29-Jul-2024",
+      postDate: "29-Jul-2024",
+      ref: "BILL PAYMENT",
+      docType: "KZ",
+      ind: "Dr" as const,
+      amount: 120263.0,
+      tdsAmt: 0,
+      desc: "PAYMENT FOR FHO/KMA/C24/0038",
+      type: "Payment" as const,
+    },
+    {
+      docNo: "1500009988",
+      docDate: "28-Sep-2024",
+      postDate: "28-Sep-2024",
+      ref: "ADVANCE PAYMENT",
+      docType: "KZ",
+      ind: "Dr" as const,
+      amount: 50000.0,
+      tdsAmt: 0,
+      desc: "ADVANCE PAYMENT FOR NEXT PROJECT (NOT YET IN TALLY)",
+      type: "Payment" as const,
+    },
+  ];
+
+  const buyerRows: BuyerRow[] = buyerRowsRaw.map((r, i) => {
+    const docD = parseDate(r.docDate);
+    const postD = parseDate(r.postDate);
+    return {
+      id: `O-DEMO-${i}`,
+      source: "Buyer",
+      docNo: r.docNo,
+      date: docD || postD,
+      docDate: docD,
+      postingDate: postD,
+      ref: r.ref,
+      docType: r.docType,
+      ind: r.ind,
+      amount: r.amount,
+      signed: r.ind === "Cr" ? -r.amount : r.amount,
+      type: r.type,
+      tds: r.tdsAmt,
+      tdsSec: r.tdsAmt > 0 ? "194Q" : "",
+      desc: r.desc,
+      file: "SAP_FBL1N_Export.xlsx",
+      _original: { ind: r.ind, type: r.type },
+    };
+  });
+
+  return {
+    vendorRows,
+    buyerRows,
+    vendorOpen: { side: "Dr", amount: 314378.0, date: parseDate("01-Apr-2024") },
+    buyerOpen: { side: "Cr", amount: 314378.0, count: 1, date: parseDate("01-Apr-2024") },
+    vendorClose: { side: "Dr", amount: 812982.95 },
+    buyerClose: { side: "Cr", amount: 421090.08 },
+    vendorCode: "1200001029",
+    vendorName: "Rohan Enterprises",
+  };
+}

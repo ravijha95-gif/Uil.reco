@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* Theme system for Dark and Midnight Navy styles */
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+  background-color: #0b0f19;
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .bg-white {
+  background-color: #131b2e !important;
+}
+
+html[data-theme="dark"] .bg-slate-50,
+html[data-theme="dark"] .bg-slate-50\/60,
+html[data-theme="dark"] .bg-slate-50\/50 {
+  background-color: #0e1626 !important;
+}
+
+html[data-theme="dark"] .border-slate-200,
+html[data-theme="dark"] .border-slate-200\/80,
+html[data-theme="dark"] .border-slate-100 {
+  border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .text-slate-800,
+html[data-theme="dark"] .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .text-slate-600,
+html[data-theme="dark"] .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  background-color: #182239 !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+/* Midnight Navy Theme */
+html[data-theme="navy"] {
+  color-scheme: dark;
+}
+
+html[data-theme="navy"] body {
+  background-color: #070c18;
+  color: #f0f4fc;
+}
+
+html[data-theme="navy"] .bg-white {
+  background-color: #0f1933 !important;
+}
+
+html[data-theme="navy"] .bg-slate-50,
+html[data-theme="navy"] .bg-slate-50\/60,
+html[data-theme="navy"] .bg-slate-50\/50 {
+  background-color: #0b1328 !important;
+}
+
+html[data-theme="navy"] .border-slate-200,
+html[data-theme="navy"] .border-slate-200\/80,
+html[data-theme="navy"] .border-slate-100 {
+  border-color: #1b2e56 !important;
+}
+
+html[data-theme="navy"] .text-slate-900 {
+  color: #f0f6ff !important;
+}
+
+html[data-theme="navy"] .text-slate-800,
+html[data-theme="navy"] .text-slate-700 {
+  color: #dbe4f9 !important;
+}
+
+html[data-theme="navy"] .text-slate-600,
+html[data-theme="navy"] .text-slate-500 {
+  color: #8fa3cf !important;
+}
+
+html[data-theme="navy"] input,
+html[data-theme="navy"] select,
+html[data-theme="navy"] textarea {
+  background-color: #142245 !important;
+  color: #f0f6ff !important;
+  border-color: #233a6b !important;
+}
+
+/* Print Media Styles for Statutory Conclusion Statement */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10.5pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide everything on the page by default in print mode */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Only make the printable statement container and its contents visible */
+  #printable-statement-container,
+  #printable-statement-container * {
+    visibility: visible !important;
+  }
+
+  #printable-statement-container {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 6mm 8mm !important;
+    display: block !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    border: none !important;
+    z-index: 999999 !important;
+  }
+
+  /* Hide backdrop/modal containers */
+  .fixed,
+  .backdrop-blur-xs,
+  header,
+  nav,
+  button,
+  .no-print {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  table {
+    page-break-inside: auto;
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  input, select, textarea {
+    border: none !important;
+    background: transparent !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Vendor Reconciliation Engine",
+  "description": "Automated vendor ledger reconciliation with multi-pass smart matching, TDS validation, anomaly detection, and interactive ledger alignment.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

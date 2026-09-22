@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="vrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+  <!-- Background Icon Container -->
+  <rect width="32" height="32" rx="8" fill="url(#vrGrad)" />
+  
+  <!-- Scales / Reconciliation Balance Beam -->
+  <path d="M16 6v17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+  <path d="M9 10h14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+  <path d="M12 23h8" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Left Pan (Vendor) -->
+  <path d="M6 13l3-3 3 3" stroke="#e0e7ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M6 14a3 3 0 0 0 6 0" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" fill="#e0e7ff" fill-opacity="0.3" />
+
+  <!-- Right Pan (SAP Buyer with Verified Check) -->
+  <path d="M20 13l3-3 3 3" stroke="#e0e7ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M20 14a3 3 0 0 0 6 0" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" fill="#38bdf8" fill-opacity="0.3" />
+
+  <!-- Verification Sparkle Check -->
+  <circle cx="24" cy="24" r="5.5" fill="#10b981" />
+  <path d="M22 24l1.5 1.5 3-3" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
