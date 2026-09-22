@@ -1,0 +1,48 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify project
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "package.json")) {
+            Write-Error "package.json not found in repository root."
+            exit 1
+          }
+          Write-Host "Project found."
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build React application
+        run: npm run build
+
+      - name: Build Windows installer and portable EXE
+        run: npx electron-builder --win --x64 --publish never
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Vendor-Reconciliation-Engine-Windows
+          path: |
+            release/*.exe
+          if-no-files-found: error
