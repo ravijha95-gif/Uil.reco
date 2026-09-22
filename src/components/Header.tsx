@@ -13,6 +13,7 @@ import {
   Sun,
   Moon,
   Compass,
+  BookOpen,
 } from "lucide-react";
 import { AppTheme } from "../types";
 
@@ -25,6 +26,7 @@ interface HeaderProps {
   onOpenAnomalies: () => void;
   onOpenFeedback: () => void;
   onOpenHelpdesk?: () => void;
+  onOpenManual?: () => void;
   onExportFull: () => void;
   vendorCount: number;
   buyerCount: number;
@@ -48,6 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAnomalies,
   onOpenFeedback,
   onOpenHelpdesk,
+  onOpenManual,
   onExportFull,
   vendorCount,
   buyerCount,
@@ -205,6 +208,23 @@ export const Header: React.FC<HeaderProps> = ({
               <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-500" />
               Export Workbook
             </button>
+
+            {/* User Manual Button */}
+            {onOpenManual && (
+              <button
+                id="btn-open-manual"
+                onClick={onOpenManual}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold ${
+                  isDark || isNavy
+                    ? "bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
+                } transition-colors cursor-pointer`}
+                title="Open Complete User Manual & Operating Procedures"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
+                User Manual
+              </button>
+            )}
 
             {/* User Issue & Feedback */}
             <button
